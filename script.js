@@ -9,7 +9,7 @@
 
 
 $("button").click(function(){
-    $.getJSON("https://barrycumbie.github.io/barrycumbie/data.json", function(result){
+    $.getJSON("https://iarcher444.github.io/DevGeorgeLab/class-data.json", function(result){
       $.each(result, function(i, field){
         $("div").append(field + " ");
       });
