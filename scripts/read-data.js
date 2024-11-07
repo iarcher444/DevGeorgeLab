@@ -1,11 +1,30 @@
 
-$(document).ready(function() {
-    $("button").click(function() {
-        $.getJSON("https://barrycumbie.github.io/barrycumbie/data.json", function(result) {
-            $("#dataDisplay").empty();  // Clear previous data
-            $.each(result, function(key, value) {
-                // Assuming the JSON structure is an object with key-value pairs
-                $("#dataDisplay").append(`<p><strong>${key}:</strong> ${value}</p>`);
-            });
+
+// $.ajax({
+//   dataType: "json",
+//   url: url,
+//   data: data,
+//   success: success
+// });
+
+
+$("button").click(function(){
+    $.getJSON("https://barrycumbie.github.io/barrycumbie/data.json", function(result){
+      $.each(result, function(i, field){
+        $("div").append(field + " ");
+      });
     });
-});
+  });
+
+// $.getJSON( "https://barrycumbie.github.io/barrycumbie/data.js", function( data ) {
+//     console.log(data); 
+//     var items = [];
+//     $.each( data, function( key, val ) {
+//       items.push( "<li id='" + key + "'>" + val + "</li>" );
+//     });
+   
+//     $( "<ul/>", {
+//       "class": "my-new-list",
+//       html: items.join( "" )
+//     }).appendTo( "body" );
+//   });
