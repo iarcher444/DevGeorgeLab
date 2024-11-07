@@ -1,28 +1,19 @@
-$(document).ready(function() {
-    $("#fetchButton").click(function() {
-        // Fetch JSON data from your local JSON file
-        $.getJSON("class-data.json", function(result) {
-            $("#dataDisplay").empty();  // Clear previous data
-
-            // Iterate over the games array in the JSON file
-            result.games.forEach(function(game) {
-                $("#dataDisplay").append(`
-                    <p><strong>Game Name:</strong> ${game.gameName}</p>
-                    <p><strong>URL:</strong> <a href="${game.gameURL}" target="_blank">${game.gameURL}</a></p>
-                    <p><strong>Author:</strong> ${game.gameAuthor}</p>
-                    <p><strong>Group:</strong> ${game.gameGroup}</p>
-                    <hr>
-                `);
-            });
-        }).fail(function() {
-            console.error("Error loading JSON file.");
-            $("#dataDisplay").text("Error loading data.");
+document.getElementById('fetchButton').addEventListener('click', function () {
+    fetch('https://randomuser.me/api/')
+        .then(response => response.json())
+        .then(data => {
+            const user = data.results[0];
+            document.getElementById('dataDisplay').innerHTML = `
+                <h3>User Information</h3>
+                <p><strong>Name:</strong> ${user.name.first} ${user.name.last}</p>
+                <p><strong>Email:</strong> ${user.email}</p>
+                <p><strong>Location:</strong> ${user.location.city}, ${user.location.country}</p>
+                <img src="${user.picture.large}" alt="User Picture" class="img-fluid rounded-circle">
+            `;
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+            document.getElementById('dataDisplay').innerHTML = `<p>Error fetching data.</p>`;
         });
-    });
 });
 
-//     $( "<ul/>", {
-//       "class": "my-new-list",
-//       html: items.join( "" )
-//     }).appendTo( "body" );
-//   });
