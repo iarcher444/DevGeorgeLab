@@ -1,28 +1,26 @@
+$(document).ready(function() {
+    $("#fetchButton").click(function() {
+        // Fetch JSON data from your local JSON file
+        $.getJSON("class-data.json", function(result) {
+            $("#dataDisplay").empty();  // Clear previous data
 
-
-// $.ajax({
-//   dataType: "json",
-//   url: url,
-//   data: data,
-//   success: success
-// });
-
-
-$("button").click(function(){
-    $.getJSON("https://barrycumbie.github.io/barrycumbie/data.json", function(result){
-      $.each(result, function(i, field){
-        $("div").append(field + " ");
-      });
+            // Iterate over the games array in the JSON file
+            result.games.forEach(function(game) {
+                $("#dataDisplay").append(`
+                    <p><strong>Game Name:</strong> ${game.gameName}</p>
+                    <p><strong>URL:</strong> <a href="${game.gameURL}" target="_blank">${game.gameURL}</a></p>
+                    <p><strong>Author:</strong> ${game.gameAuthor}</p>
+                    <p><strong>Group:</strong> ${game.gameGroup}</p>
+                    <hr>
+                `);
+            });
+        }).fail(function() {
+            console.error("Error loading JSON file.");
+            $("#dataDisplay").text("Error loading data.");
+        });
     });
-  });
+});
 
-// $.getJSON( "https://barrycumbie.github.io/barrycumbie/data.js", function( data ) {
-//     console.log(data); 
-//     var items = [];
-//     $.each( data, function( key, val ) {
-//       items.push( "<li id='" + key + "'>" + val + "</li>" );
-//     });
-   
 //     $( "<ul/>", {
 //       "class": "my-new-list",
 //       html: items.join( "" )
